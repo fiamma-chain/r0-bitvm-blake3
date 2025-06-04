@@ -3,7 +3,7 @@
 use methods::{
     METHOD_ELF, METHOD_ID
 };
-use risc0_zkvm::{default_prover, ExecutorEnv};
+use risc0_zkvm::{default_prover, ExecutorEnv, ProverOpts};
 
 fn main() {
     // Initialize tracing. In order to view logs, run `RUST_LOG=info cargo run`
@@ -37,7 +37,7 @@ fn main() {
     // Proof information by proving the specified ELF binary.
     // This struct contains the receipt along with statistics about execution of the guest
     let prove_info = prover
-        .prove(env, METHOD_ELF)
+        .prove_with_opts(env, METHOD_ELF, &ProverOpts::groth16())
         .unwrap();
 
     // extract the receipt.
